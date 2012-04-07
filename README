@@ -1,5 +1,14 @@
 The Powder Toy Originals Mod -- Version a0.
 
+Dependencies:
+- Lua
+- FFTW
+- SDL
+- BZIP2
+
+To get them (gentoo)
+root@MerbosMagic ~ #: emerge -avt bzip2 lua fftw libsdl
+
 You may wish to read GENTOOMAKE for more information on building the source.
 Check "Executables/" for downloads.
 
