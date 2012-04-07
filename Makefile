@@ -155,7 +155,13 @@ clean:
 
 final:
 	make clean
+	rm -fv build/p*
+	make powder
+	make powder-64-sse3
+	make clean
 	cp -fruv build/* Executables/
+	chmod +x Executables/powder
+	chmod +x Executables/powder-64-sse3
 	rm -fv build/p*
 	rm -frv Executables/obj
 
