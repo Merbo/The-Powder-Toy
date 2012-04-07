@@ -2,9 +2,9 @@ SOURCES := $(wildcard src/*.c src/elements/*.c)
 HEADERS := $(wildcard includes/*.h)
 OBJS := $(patsubst src/%.c,build/obj/%.o,$(SOURCES))
 
-CFLAGS := -w -std=c99 -D_POSIX_C_SOURCE=200112L -DLUACONSOLE -DGRAVFFT -Iincludes/ -D_GNU_SOURCE
+CFLAGS := -w -std=c99 -D_POSIX_C_SOURCE=200112L -DLUACONSOLE -DGRAVFFT -Iincludes/ -D_GNU_SOURCE -DLUA_R_INCL
 OFLAGS := -O3 -ffast-math -ftree-vectorize -funsafe-math-optimizations
-LFLAGS := -lpthread -lSDL -lfftw3f -lm -lbz2 -lX11 -llua5.1 -lrt
+LFLAGS := -lpthread -lSDL -lfftw3f -lm -lbz2 -lX11 -llua -lrt
 LFLAGS_X := -lm -lbz2 -lSDLmain
 LFLAGS_WIN := -lmingw32 -lgnurx -lws2_32 -lSDLmain -lpthread -lSDL -lfftw3f -lm -lbz2 -llua5.1
 MFLAGS_SSE3 := -march=native -DX86 -DX86_SSE3 -msse3
@@ -150,10 +150,14 @@ build/obj/gravity.powder-sse.exe.o: src/gravity.c $(HEADERS)
 .PHONY: clean
 
 clean:
-	rm -f build/obj/*.o
-	rm -f build/obj/elements/*.o
+	rm -vf build/obj/*.o
+	rm -vf build/obj/elements/*.o
 
-
+final:
+	make clean
+	cp -fruv build/* Executables/
+	rm -fv build/p*
+	rm -frv Executables/obj
 
 powder-icc: $(SOURCES)
 	/opt/intel/Compiler/11.1/073/bin/intel64/icc -m64 -o$@ -Iincludes/ -O2 -march=core2 -msse3 -mfpmath=sse -lSDL -lbz2 -lm -xW $(SOURCES) -std=c99 -D_POSIX_C_SOURCE=200112L
