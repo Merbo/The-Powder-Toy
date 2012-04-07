@@ -1,0 +1,11 @@
+Making this in gentoo is a little different, as this was made for Gentoo itself.
+In order to build all this and send it to your Executables/ directory, you'll need to do the following:
+make <packages>
+Example: make powder && make powder-64-sse3
+THEN, you have to do make final.
+Example: make final
+"make final" does two things:
+- Runs 'make clean'
+--> By running 'make clean' it will remove the object files that can cause clutter.
+- Copies executables from various places in 'build/' to 'Executables'
+--> By doing this, end users will have it easy. 
